@@ -11,6 +11,10 @@ LABEL maintainer="thelamer"
 ENV TITLE=Mediaelch
 
 RUN \
+  echo "**** add icon ****" && \
+  curl -o \
+    /kclient/public/icon.png \
+    https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/mediaelch-logo.png && \
   echo "**** install packages ****" && \
   apt-key adv --keyserver hkp://keyserver.ubuntu.com:11371 --recv-keys 604E3CBB4DEF35FBD9D4928220B2163BC4FD788F && \
   echo "deb http://ppa.launchpad.net/mediaelch/mediaelch-stable/ubuntu jammy main" >> /etc/apt/sources.list.d/mediaelch.list && \
@@ -22,7 +26,6 @@ RUN \
   apt-get update && \
   apt-get install -y --no-install-recommends \
     ${MEDIAELCH} && \
-  sed -i 's|</applications>|  <application title="MediaElch*" type="normal">\n    <maximized>yes</maximized>\n  </application>\n</applications>|' /etc/xdg/openbox/rc.xml && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
