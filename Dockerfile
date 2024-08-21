@@ -18,8 +18,8 @@ RUN \
     /kclient/public/icon.png \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/mediaelch-logo.png && \
   echo "**** install packages ****" && \
-  curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x604E3CBB4DEF35FBD9D4928220B2163BC4FD788F" | gpg --dearmor | tee /usr/share/keyrings/mediaelch.gpg >/dev/null
-  echo "deb [aarch=amd64 signed-by=/usr/share/keyrings/mediaelch.gpg] http://ppa.launchpad.net/mediaelch/mediaelch-stable/ubuntu jammy main" > /etc/apt/sources.list.d/mediaelch.list
+  curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x604E3CBB4DEF35FBD9D4928220B2163BC4FD788F" | gpg --dearmor | tee /usr/share/keyrings/mediaelch.gpg >/dev/null && \
+  echo "deb [aarch=amd64 signed-by=/usr/share/keyrings/mediaelch.gpg] http://ppa.launchpad.net/mediaelch/mediaelch-stable/ubuntu jammy main" > /etc/apt/sources.list.d/mediaelch.list && \
   if [ -z ${MEDIAELCH_VERSION+x} ]; then \
     MEDIAELCH="mediaelch"; \
   else \
