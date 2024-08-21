@@ -130,7 +130,7 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /path/to/config:/config
+      - /path/to/mediaelch/config:/config
     ports:
       - 3000:3000
       - 3001:3001
@@ -148,7 +148,7 @@ docker run -d \
   -e TZ=Etc/UTC \
   -p 3000:3000 \
   -p 3001:3001 \
-  -v /path/to/config:/config \
+  -v /path/to/mediaelch/config:/config \
   --restart unless-stopped \
   lscr.io/linuxserver/mediaelch:latest
 ```
