@@ -28,6 +28,7 @@ RUN \
   apt-get update && \
   apt-get install -y --no-install-recommends \
     ${MEDIAELCH} && \
+  printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
