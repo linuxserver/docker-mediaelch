@@ -23,7 +23,7 @@ jobs:
           echo "> [!NOTE]" >> $GITHUB_STEP_SUMMARY
           echo "> External trigger running off of master branch. To disable this trigger, add \`mediaelch_master\` into the Github organizational variable \`SKIP_EXTERNAL_TRIGGER\`." >> $GITHUB_STEP_SUMMARY
           printf "\n## Retrieving external version\n\n" >> $GITHUB_STEP_SUMMARY
-          EXT_RELEASE=$(curl -sX GET http://ppa.launchpad.net/mediaelch/mediaelch-stable/ubuntu/dists/jammy/main/binary-amd64/Packages.gz | gunzip |grep -A 7 -m 1 'Package: mediaelch' | awk -F ': ' '/Version/{print $2;exit}' | sed 's/~jammy//g')
+          EXT_RELEASE=$(curl -sX GET http://ppa.launchpad.net/mediaelch/mediaelch-stable/ubuntu/dists/noble/main/binary-amd64/Packages.gz | gunzip |grep -A 7 -m 1 'Package: mediaelch' | awk -F ': ' '/Version/{print $2;exit}' | sed 's/~noble//g')
           echo "Type is \`custom_version_command\`" >> $GITHUB_STEP_SUMMARY
           if [ -z "${EXT_RELEASE}" ] || [ "${EXT_RELEASE}" == "null" ]; then
             echo "> [!WARNING]" >> $GITHUB_STEP_SUMMARY

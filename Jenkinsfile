@@ -131,7 +131,7 @@ pipeline {
       steps{
         script{
           env.EXT_RELEASE = sh(
-            script: ''' curl -sX GET http://ppa.launchpad.net/mediaelch/mediaelch-stable/ubuntu/dists/jammy/main/binary-amd64/Packages.gz | gunzip |grep -A 7 -m 1 'Package: mediaelch' | awk -F ': ' '/Version/{print $2;exit}' | sed 's/~jammy//g' ''',
+            script: ''' curl -sX GET http://ppa.launchpad.net/mediaelch/mediaelch-stable/ubuntu/dists/noble/main/binary-amd64/Packages.gz | gunzip |grep -A 7 -m 1 'Package: mediaelch' | awk -F ': ' '/Version/{print $2;exit}' | sed 's/~noble//g' ''',
             returnStdout: true).trim()
             env.RELEASE_LINK = 'custom_command'
         }

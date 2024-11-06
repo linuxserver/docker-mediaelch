@@ -329,5 +329,6 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **05.11.24:** - Rebase to Ubuntu Noble.
 * **10.02.24:** - Update Readme with new env vars and ingest proper PWA icon.
 * **07.12.23:** - Initial release.

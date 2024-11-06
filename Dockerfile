@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbookworm
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:ubuntunoble
 
 # set version label
 ARG BUILD_DATE
@@ -19,11 +19,11 @@ RUN \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/mediaelch-logo.png && \
   echo "**** install packages ****" && \
   curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x604E3CBB4DEF35FBD9D4928220B2163BC4FD788F" | gpg --dearmor | tee /usr/share/keyrings/mediaelch.gpg >/dev/null && \
-  echo "deb [aarch=amd64 signed-by=/usr/share/keyrings/mediaelch.gpg] http://ppa.launchpad.net/mediaelch/mediaelch-stable/ubuntu jammy main" > /etc/apt/sources.list.d/mediaelch.list && \
+  echo "deb [aarch=amd64 signed-by=/usr/share/keyrings/mediaelch.gpg] http://ppa.launchpad.net/mediaelch/mediaelch-stable/ubuntu noble main" > /etc/apt/sources.list.d/mediaelch.list && \
   if [ -z ${MEDIAELCH_VERSION+x} ]; then \
     MEDIAELCH="mediaelch"; \
   else \
-    MEDIAELCH="mediaelch=${MEDIAELCH_VERSION}~jammy"; \
+    MEDIAELCH="mediaelch=${MEDIAELCH_VERSION}~noble"; \
   fi && \
   apt-get update && \
   apt-get install -y --no-install-recommends \
