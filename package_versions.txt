@@ -1123,7 +1123,7 @@ man-db                                                                        2.
 mawk                                                                          1.3.4.20200120-3.1                                  deb                          
 media-typer                                                                   0.3.0                                               npm                          
 media-types                                                                   10.0.0                                              deb                          
-mediaelch                                                                     2.10.6.4-1~jammy                                    deb                          
+mediaelch                                                                     2.12.0.1-1~jammy                                    deb                          
 merge-descriptors                                                             1.0.3                                               npm                          
 mesa-va-drivers                                                               22.3.6-1+deb12u1                                    deb                          
 mesa-vulkan-drivers                                                           22.3.6-1+deb12u1                                    deb                          
