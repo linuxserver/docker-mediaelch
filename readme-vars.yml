@@ -6,6 +6,7 @@ project_url: "https://github.com/Komet/MediaElch"
 project_logo: "https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/mediaelch-logo.png"
 project_blurb: "[MediaElch]({{ project_url }}) is a MediaManager for Kodi. Information about Movies, TV Shows, Concerts and Music are stored as nfo files. Fanarts are downloaded automatically from fanart.tv. Using the nfo generator, MediaElch can be used with other MediaCenters as well."
 project_lsio_github_repo_url: "https://github.com/linuxserver/docker-{{ project_name }}"
+project_categories: "Media Management"
 project_blurb_optional_extras_enabled: false
 # supported architectures
 available_architectures:
