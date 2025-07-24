@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbookworm
+FROM ghcr.io/linuxserver/baseimage-selkies:debianbookworm
 
 # set version label
 ARG BUILD_DATE
@@ -15,7 +15,7 @@ ENV TITLE=Mediaelch
 RUN \
   echo "**** add icon ****" && \
   curl -o \
-    /kclient/public/icon.png \
+    /usr/share/selkies/www/icon.png \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/mediaelch-logo.png && \
   echo "**** install packages ****" && \
   curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x604E3CBB4DEF35FBD9D4928220B2163BC4FD788F" | gpg --dearmor | tee /usr/share/keyrings/mediaelch.gpg >/dev/null && \
