@@ -425,6 +425,7 @@ Once registered you can define the dockerfile to use with `-f Dockerfile.aarch64
 
 ## Versions
 
+* **14.08.25:** - Rebase to noble, ingest latest stable version, install qt deps.
 * **12.07.25:** - Rebase to Selkies, HTTPS IS NOW REQUIRED.
 * **10.02.24:** - Update Readme with new env vars and ingest proper PWA icon.
 * **07.12.23:** - Initial release.
