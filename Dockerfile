@@ -24,7 +24,7 @@ RUN \
     libqt6multimedia6 \
     libqt6sql6-sqlite \
     libqt6svg6 \
-    mediaelch \
+    "mediaelch${MEDIAELCH_VERSION:+=$MEDIAELCH_VERSION}" \
     qt6-image-formats-plugins && \
   printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
   echo "**** cleanup ****" && \
