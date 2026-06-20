@@ -2,13 +2,14 @@
 
 # jenkins variables
 project_name: docker-mediaelch
-external_type: na
-custom_version_command: "curl -sX GET http://ppa.launchpad.net/mediaelch/mediaelch-stable/ubuntu/dists/noble/main/binary-amd64/Packages.gz | gunzip |grep -A 7 -m 1 'Package: mediaelch' | awk -F ': ' '/Version/{print $2;exit}'"
+external_type: github_stable
 release_type: stable
 release_tag: latest
 ls_branch: master
 build_armhf: false
 repo_vars:
+  - EXT_USER = 'Komet'
+  - EXT_REPO = 'MediaElch'
   - BUILD_VERSION_ARG = 'MEDIAELCH_VERSION'
   - LS_USER = 'linuxserver'
   - LS_REPO = 'docker-mediaelch'

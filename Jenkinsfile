@@ -19,6 +19,8 @@ pipeline {
     DOCKERHUB_TOKEN=credentials('docker-hub-ci-pat')
     QUAYIO_API_TOKEN=credentials('quayio-repo-api-token')
     GIT_SIGNING_KEY=credentials('484fbca6-9a4f-455e-b9e3-97ac98785f5f')
+    EXT_USER = 'Komet'
+    EXT_REPO = 'MediaElch'
     BUILD_VERSION_ARG = 'MEDIAELCH_VERSION'
     LS_USER = 'linuxserver'
     LS_REPO = 'docker-mediaelch'
@@ -144,16 +146,23 @@ pipeline {
     /* ########################
        External Release Tagging
        ######################## */
-    // If this is a custom command to determine version use that command
-    stage("Set tag custom bash"){
-      steps{
-        script{
-          env.EXT_RELEASE = sh(
-            script: ''' curl -sX GET http://ppa.launchpad.net/mediaelch/mediaelch-stable/ubuntu/dists/noble/main/binary-amd64/Packages.gz | gunzip |grep -A 7 -m 1 'Package: mediaelch' | awk -F ': ' '/Version/{print $2;exit}' ''',
-            returnStdout: true).trim()
-            env.RELEASE_LINK = 'custom_command'
-        }
-      }
+    // If this is a stable github release use the latest endpoint from github to determine the ext tag
+    stage("Set ENV github_stable"){
+     steps{
+       script{
+         env.EXT_RELEASE = sh(
+           script: '''curl -H "Authorization: token ${GITHUB_TOKEN}" -s https://api.github.com/repos/${EXT_USER}/${EXT_REPO}/releases/latest | jq -r '. | .tag_name' ''',
+           returnStdout: true).trim()
+       }
+     }
+    }
+    // If this is a stable or devel github release generate the link for the build message
+    stage("Set ENV github_link"){
+     steps{
+       script{
+         env.RELEASE_LINK = 'https://github.com/' + env.EXT_USER + '/' + env.EXT_REPO + '/releases/tag/' + env.EXT_RELEASE
+       }
+     }
     }
     // Sanitize the release tag and strip illegal docker or github characters
     stage("Sanitize tag"){
@@ -1033,7 +1042,7 @@ pipeline {
                   "type": "commit",\
                   "tagger": {"name": "LinuxServer-CI","email": "ci@linuxserver.io","date": "'${GITHUB_DATE}'"}}'
               echo "Pushing New release for Tag"
-              echo "Updating to ${EXT_RELEASE_CLEAN}" > releasebody.json
+              curl -H "Authorization: token ${GITHUB_TOKEN}" -s https://api.github.com/repos/${EXT_USER}/${EXT_REPO}/releases/latest | jq -r '. |.body' > releasebody.json
               jq -n \
                 --arg tag_name "$META_TAG" \
                 --arg target_commitish "master" \
