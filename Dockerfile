@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM ghcr.io/linuxserver/baseimage-selkies:ubuntunoble
+FROM ghcr.io/linuxserver/baseimage-selkies:debiantrixie
 
 # set version label
 ARG BUILD_DATE
@@ -11,7 +11,6 @@ LABEL maintainer="thelamer"
 
 # title
 ENV TITLE=Mediaelch \
-    NO_GAMEPAD=true \
     PIXELFLUX_WAYLAND=true
 
 RUN \
@@ -20,14 +19,26 @@ RUN \
     /usr/share/selkies/www/icon.png \
     https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/mediaelch-logo.png && \
   echo "**** install packages ****" && \
-  add-apt-repository ppa:mediaelch/mediaelch-stable && \
   apt-get update && \
   apt-get install -y --no-install-recommends \
     libqt6multimedia6 \
     libqt6sql6-sqlite \
     libqt6svg6 \
-    "mediaelch${MEDIAELCH_VERSION:+=$MEDIAELCH_VERSION}" \
     qt6-image-formats-plugins && \
+  echo "**** install mediaelch ****" && \
+  mkdir -p /opt/mediaelch && \
+  DOWNLOAD_URL=$(curl -sX GET "https://api.github.com/repos/Komet/MediaElch/releases/latest" \
+    | awk -F '(": "|")' '/https.*MediaElch_linux.*AppImage/ {print $3}') && \
+  curl -o \
+    /tmp/mediaelch.app -L \
+    "${DOWNLOAD_URL}" && \
+  chmod +x /tmp/mediaelch.app && \
+  cd /tmp && \
+  ./mediaelch.app --appimage-extract && \
+  mv squashfs-root/* /opt/mediaelch && \
+  cp \
+    /opt/mediaelch/usr/share/pixmaps/MediaElch.png \
+    /usr/share/pixmaps/MediaElch.png && \
   printf "Linuxserver.io version: ${VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
