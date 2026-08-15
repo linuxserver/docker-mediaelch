@@ -28,7 +28,7 @@ RUN \
   echo "**** install mediaelch ****" && \
   mkdir -p /opt/mediaelch && \
   DOWNLOAD_URL=$(curl -sX GET "https://api.github.com/repos/Komet/MediaElch/releases/latest" \
-    | awk -F '(": "|")' '/https.*MediaElch_linux.*AppImage/ {print $3}') && \
+    | jq -r 'first(.assets[].browser_download_url | select(test("MediaElch_linux.*AppImage")))') && \
   curl -o \
     /tmp/mediaelch.app -L \
     "${DOWNLOAD_URL}" && \
